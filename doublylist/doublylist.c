@@ -81,7 +81,7 @@ DoublyListNode* getDLElement(DoublyList* pList, int position)
     {
 		printf("Wrong Approach\n");
 		return (NULL);
-	}
+    }
     pNode = &pList->headerNode;
     for (int i = 0; i <= position; i++)
         pNode = pNode->pRLink;
