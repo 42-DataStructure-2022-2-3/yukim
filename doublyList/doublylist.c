@@ -94,7 +94,7 @@ void displayDoublyList(DoublyList* pList)
 {
     DoublyListNode  *pNode;
 
-    pNode = &pList->headerNode;
+    pNode = pList->headerNode.pRLink;
     printf("Current List Length : %d\n", pList->currentElementCount);
     for (int i = 0; i < pList->currentElementCount; i++)
 	{
