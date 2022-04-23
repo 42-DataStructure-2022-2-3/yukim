@@ -17,7 +17,7 @@ typedef struct ArrayStackType
 	StackNode* pElement;		// Top ����� ������
 } ArrayStack;
 
-ArrayStack* createArrayStack();
+ArrayStack* createArrayStack(int maxElementCount);
 int pushAS(ArrayStack* pStack, StackNode element);
 StackNode* popAS(ArrayStack* pStack);
 StackNode* peekAS(ArrayStack* pStack);

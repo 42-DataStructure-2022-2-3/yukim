@@ -1,11 +1,12 @@
 #include "arraystack.h"
 
-ArrayStack* createArrayStack()
+ArrayStack* createArrayStack(int maxElementCount)
 {
 	ArrayStack	*stack;
-
-	if (stack = (ArrayStack *)calloc(1, sizeof(ArrayStack)))
+	stack = (ArrayStack *)calloc(1, sizeof(ArrayStack));
+	if (stack)
 	{
+		stack->maxElementCount = maxElementCount;
 		stack->pElement = (StackNode *)calloc(stack->maxElementCount, sizeof(StackNode));
 		if (!stack->pElement)
 			return (NULL);
@@ -17,9 +18,13 @@ ArrayStack* createArrayStack()
 
 int pushAS(ArrayStack* pStack, StackNode element)
 {
+	StackNode	*pnode;
+
 	if (isArrayStackFull(pStack))
 		return (FALSE);
-	pStack->pElement[pStack->currentElementCount] = element;
+	pnode = (StackNode *)calloc(1, sizeof(StackNode));
+	*pnode = element;
+	pStack->pElement[pStack->currentElementCount] = *pnode;
 	pStack->currentElementCount++;
 	return (TRUE);
 }
@@ -27,23 +32,30 @@ int pushAS(ArrayStack* pStack, StackNode element)
 StackNode* popAS(ArrayStack* pStack)
 {
 	StackNode	*popnode;
+	StackNode	*copynode;
 
 	if (isArrayStackEmpty(pStack))
 		return (NULL);
-	popnode = &pStack->pElement[pStack->currentElementCount];
+	copynode = (StackNode *)calloc(1, sizeof(StackNode));
+	popnode = &pStack->pElement[pStack->currentElementCount - 1];
+	*copynode = *popnode;
 	bzero(popnode, sizeof(StackNode));
 	pStack->currentElementCount--;
-	return (popnode);
+	return (copynode);
 }
 
 StackNode* peekAS(ArrayStack* pStack)
 {
-
+	if (isArrayStackEmpty(pStack))
+		return (NULL);
+	return (&pStack->pElement[pStack->currentElementCount - 1]);
 }
 
 void deleteArrayStack(ArrayStack* pStack)
 {
-
+	free(pStack->pElement);
+	bzero(pStack, sizeof(ArrayStack));
+	free(pStack);
 }
 
 int isArrayStackFull(ArrayStack* pStack)
