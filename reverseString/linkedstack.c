@@ -95,3 +95,25 @@ void printLinkedStack(LinkedStack* pStack)
 		printf("%c\n", curr->data);
 	}
 }
+
+char* printReverseStringLinkedStack(LinkedStack* pStack) 
+{
+	char *rev_str = (char *)malloc(sizeof(char) * pStack->currentElementCount);
+
+	StackNode	*curr;
+	int			i;
+
+	i = 0;
+	curr = pStack->pTopElement;
+	while (curr)
+	{
+		if (!curr->pLink)
+			break ;
+		curr = curr->pLink;
+		rev_str[i] = curr->data;
+		i++;
+	}
+	rev_str[i] = '\0';
+	printf("rev_str : %s\n", rev_str);
+	return (rev_str);
+}
