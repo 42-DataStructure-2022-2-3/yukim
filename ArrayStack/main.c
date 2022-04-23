@@ -3,20 +3,17 @@
 int main()
 {
 	ArrayStack	*stack = createArrayStack(4);
-	StackNode	*pnode1;
-	StackNode	*pnode2;
+	StackNode	*pNode;
 	int i;
 	printf ("is Empty? %d\n", isArrayStackEmpty(stack));
 	printf ("is Full? %d\n", isArrayStackFull(stack));
 	
-	pnode1 = (StackNode	*)calloc(1, sizeof(StackNode));
-	pnode2 = (StackNode	*)calloc(1, sizeof(StackNode));
-	pnode1->data = 'A';
-	pnode2->data = 'B';
-	pushAS(stack, *pnode1);
-	pushAS(stack, *pnode2);
-	pushAS(stack, *pnode1);
-	pushAS(stack, *pnode2);
+	for(i = 0; i < 2; i++)
+	{
+		pNode = (StackNode	*)calloc(1, sizeof(StackNode));
+		pNode->data = 'A' + i;
+		pushAS(stack, *pNode);
+	}
 	printf ("pop : %c\n",popAS(stack)->data);
 	printf ("peek : %c\n",peekAS(stack)->data);
 	
