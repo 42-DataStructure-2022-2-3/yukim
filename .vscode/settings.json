@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"linkedstack.h": "c"
+		"linkedstack.h": "c",
+		"functional": "c"
 	}
 }
