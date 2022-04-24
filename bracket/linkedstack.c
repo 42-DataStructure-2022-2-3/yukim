@@ -116,8 +116,16 @@ int checkBracket(char *str)
 		{
 			if (isLinkedStackEmpty(pStack))
 				return (FALSE);
-			else if (str[i] - popLS(pStack)->data > 2)
-				return (FALSE);
+			else if (str[i] == ')')
+			{
+				if (str[i] - popLS(pStack)->data != 1)
+					return (FALSE);
+			}
+			else if (str[i] == ']' || str[i] == '}')
+			{
+				if (str[i] - popLS(pStack)->data != 2)
+					return (FALSE);
+			}	
 		}
 		i++;
 	}
