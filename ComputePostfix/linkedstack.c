@@ -93,7 +93,7 @@ void printPostfix(ExprToken	*postfix, int len)
 		else
 			printf("%d ", postfix[i].value);
 	}
-	printf("\n");
+	printf("= ");
 }
 
 int getPostfixLength(ExprToken* infix, int size)
@@ -117,21 +117,21 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 	int			len;
 	int			j;
 
-	opStack = createLinkedStack();
-	len = getPostfixLength(infix, size);
-	postfix = (ExprToken *)calloc(len, sizeof(ExprToken));
+	opStack = createLinkedStack(); // 연산자를 담을 스택
+	len = getPostfixLength(infix, size); // 소괄호를 제외한 길이
+	postfix = (ExprToken *)calloc(len, sizeof(ExprToken)); // 후위 표기식을 담을 구조체 배열
 	j = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) //infix 순회
 	{
-		if (infix[i].type == operand)
+		if (infix[i].type == operand) // 피연산자일 경우 배열에 추가
 		{
 			postfix[j].type = infix[i].type;
 			postfix[j].value = infix[i].value;
 			j++;
 		}
-		else if (infix[i].type == rparen)
+		else if (infix[i].type == rparen) // ')'일 경우 '('를 만날 때까지 POP
 		{	
-			while (opStack->pTopElement->pLink->data.type)
+			while (opStack->pTopElement->pLink->data.type) // 무한 반복
 			{
 				popNode = popLS(opStack);
 				if (popNode->data.type == lparen)
