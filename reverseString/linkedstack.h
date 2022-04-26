@@ -25,7 +25,7 @@ void deleteLinkedStack(LinkedStack* pStack);
 int isLinkedStackFull(LinkedStack* pStack);
 int isLinkedStackEmpty(LinkedStack* pStack);
 void printLinkedStack(LinkedStack* pStack);
-char* printReverseStringLinkedStack(LinkedStack* pStack);
+void printReverseStringLinkedStack(LinkedStack* pStack);
 #endif
 
 #ifndef _COMMON_STACK_DEF_

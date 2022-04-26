@@ -20,12 +20,7 @@ int pushLS(LinkedStack* pStack, StackNode element)
 	pNode = (StackNode *)calloc(1, sizeof(StackNode));
 	if (!pNode)
 		return (FALSE);
-	//[구조체 할당]
-	//(1)
-	*pNode = element;
-
-	//(2)
-	//pNode->data = element.data;
+	pNode->data = element.data;
 	if (pStack->currentElementCount == 0)
 		pStack->pTopElement->pLink = pNode;
 	else
@@ -34,6 +29,7 @@ int pushLS(LinkedStack* pStack, StackNode element)
 		pNode->pLink = pStack->pTopElement->pLink; 
 		pStack->pTopElement->pLink = pNode;
 	}
+	printf("\npush '%c'\n", pNode->data);
 	pStack->currentElementCount++;
 	return (TRUE);
 }
@@ -48,6 +44,7 @@ StackNode* popLS(LinkedStack* pStack)
 	popNode = pStack->pTopElement->pLink;
 	pStack->pTopElement->pLink = popNode->pLink;
 	popNode->pLink = NULL;
+	printf("\npop '%c'\n", popNode->data);
 	pStack->currentElementCount--;
 	return (popNode);
 }
@@ -92,14 +89,14 @@ void printLinkedStack(LinkedStack* pStack)
 		if (!curr->pLink)
 			break ;
 		curr = curr->pLink;
-		printf("%c\n", curr->data);
+		printf("  %c\n", curr->data);
 	}
 }
 
 int checkBracket(char *str)
 {
 	LinkedStack	*pStack = createLinkedStack();
-	StackNode	*pNode;
+	StackNode	pNode;
 	int i;
 
 	i = 0;
@@ -107,10 +104,10 @@ int checkBracket(char *str)
 	{
 		if (str[i] == '(' || str[i] == '[' || str[i] == '{')
 		{
-			pNode = (StackNode *)malloc(sizeof(StackNode));
-			pNode->data = str[i];
-			pushLS(pStack, *pNode);
-			free(pNode);
+			pNode.data = str[i];
+			pushLS(pStack, pNode);
+			printf("[stack]\n");
+			printLinkedStack(pStack);
 		}
 		else if (str[i] == ')' || str[i] == ']' || str[i] == '}')
 		{
@@ -126,7 +123,10 @@ int checkBracket(char *str)
 				if (str[i] - popLS(pStack)->data != 2)
 					return (FALSE);
 			}	
+			printf("[stack]\n");
+			printLinkedStack(pStack);
 		}
+		
 		i++;
 	}
 	if (!isLinkedStackEmpty(pStack))

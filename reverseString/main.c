@@ -5,19 +5,20 @@ int main()
 	LinkedStack	*stack = createLinkedStack();
 	
 	// ABCDE
-	StackNode	*pNode;
+	StackNode	pNode;
 	int			i;
 	for(i = 0; i < 5; i++)
 	{
-		pNode = (StackNode	*)calloc(1, sizeof(StackNode));
-		pNode->data = 'A' + i;
-		pushLS(stack, *pNode);
+		pNode.data = 'A' + i;
+		pushLS(stack, pNode);
+		printf("Pushed '%c'\n", stack->pTopElement->pLink->data);
 	}
-
+	printf("--------------------------\n");
+	printf("[print stack]\n");
 	printLinkedStack(stack);
+	printf("-----[Reverse String]-----\n");
 	printReverseStringLinkedStack(stack);
-
-	printf("!\n");
+	printf("--------------------------\n");
 	
 	return 0;
 }

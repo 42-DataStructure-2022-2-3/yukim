@@ -96,7 +96,12 @@ void printPostfix(ExprToken	*postfix, int len)
 		else if (postfix[i].type == minus)
 			printf("- ");
 		else
-			printf("%d ", postfix[i].value);
+		{
+			if (postfix[i].value >= '0' && postfix[i].value <= '9')
+				printf("%d ", postfix[i].value);
+			else
+				printf("%c ", postfix[i].value);
+		}
 	}
 	
 }
@@ -122,21 +127,21 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 	int			len;
 	int			j;
 
-	opStack = createLinkedStack();
-	len = getPostfixLength(infix, size);
-	postfix = (ExprToken *)calloc(len, sizeof(ExprToken));
+	opStack = createLinkedStack();  // 연산자를 담을 스택
+	len = getPostfixLength(infix, size); // 소괄호를 제외한 길이
+	postfix = (ExprToken *)calloc(len, sizeof(ExprToken)); // 후위 표기 구조체 배열
 	j = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) //infix 순회
 	{
-		if (infix[i].type == operand)
+		if (infix[i].type == operand) // 피연산자
 		{
 			postfix[j].type = infix[i].type;
 			postfix[j].value = infix[i].value;
 			j++;
 		}
-		else if (infix[i].type == rparen)
+		else if (infix[i].type == rparen) // 닫는 괄호
 		{	
-			while (opStack->pTopElement->pLink->data.type)
+			while (opStack->pTopElement->pLink->data.type) // 무한 반복
 			{
 				popNode = popLS(opStack);
 				if (popNode->data.type == lparen)
@@ -150,11 +155,19 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 				j++;
 			}
 		}
-		else
+		else // operator 연산자 우선 순위
 		{
+			if (opStack->currentElementCount > 0)// && peekLS(opStack)->data.value <= infix[i].value) 
+			{
+				popNode = popLS(opStack);
+				// postfix[j].type = popNode->data.type;
+				// postfix[j].value = popNode->data.value;
+				// free(popNode);
+				// j++;
+			}
 			element.data.type = infix[i].type;
 			element.data.value = infix[i].value;
-			pushLS(opStack, element);
+			pushLS(opStack, element);		
 		}
 	}
 	while (opStack->pTopElement->pLink)
@@ -168,8 +181,3 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 	printPostfix(postfix, len);
 	return (postfix);
 }
-
-// int computePostfix(ExprToken* postfix) // 후위표기 를 계산 -> int
-// {
-
-// }

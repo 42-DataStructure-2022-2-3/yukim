@@ -32,6 +32,7 @@ int main()
 	*/
 
 	// (A - (B + C)) * D
+	// A B C + - D *
 	exp = (ExprToken *)calloc(11, sizeof(ExprToken));
 	exp[0].type = lparen;
 	exp[0].value = 0;
@@ -39,14 +40,14 @@ int main()
 	exp[1].type = operand;
 	exp[1].value = 'A';
 	exp[2].type = minus;
-	exp[2].value = 0;
+	exp[2].value = 2;
 
 	exp[3].type = lparen;
 	exp[3].value = 0;
 	exp[4].type = operand;
 	exp[4].value = 'B';
 	exp[5].type = plus;
-	exp[5].value = 0;
+	exp[5].value = 2;
 	exp[6].type = operand;
 	exp[6].value = 'C';
 	exp[7].type = rparen;
@@ -55,7 +56,7 @@ int main()
 	exp[8].value = 0;
 
 	exp[9].type = times;
-	exp[9].value = 0;
+	exp[9].value = 1;
 	exp[10].type = operand;
 	exp[10].value = 'D';
 

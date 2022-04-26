@@ -20,12 +20,7 @@ int pushLS(LinkedStack* pStack, StackNode element)
 	pNode = (StackNode *)calloc(1, sizeof(StackNode));
 	if (!pNode)
 		return (FALSE);
-	//[구조체 할당]
-	//(1)
-	*pNode = element;
-
-	//(2)
-	//pNode->data = element.data;
+	pNode->data = element.data;
 	if (pStack->currentElementCount == 0)
 		pStack->pTopElement->pLink = pNode;
 	else
@@ -96,24 +91,14 @@ void printLinkedStack(LinkedStack* pStack)
 	}
 }
 
-char* printReverseStringLinkedStack(LinkedStack* pStack) 
+void printReverseStringLinkedStack(LinkedStack* pStack) 
 {
-	char *rev_str = (char *)malloc(sizeof(char) * pStack->currentElementCount);
+	StackNode	*popNode;
 
-	StackNode	*curr;
-	int			i;
-
-	i = 0;
-	curr = pStack->pTopElement;
-	while (curr)
+	while (pStack->currentElementCount > 0)
 	{
-		if (!curr->pLink)
-			break ;
-		curr = curr->pLink;
-		rev_str[i] = curr->data;
-		i++;
+		popNode = popLS(pStack);
+		printf("%c", popNode->data);
 	}
-	rev_str[i] = '\0';
-	printf("rev_str : %s\n", rev_str);
-	return (rev_str);
+	printf("\n");
 }

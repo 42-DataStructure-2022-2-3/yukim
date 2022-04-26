@@ -23,7 +23,7 @@ int pushAS(ArrayStack* pStack, StackNode element)
 	if (isArrayStackFull(pStack))
 		return (FALSE);
 	pnode = (StackNode *)calloc(1, sizeof(StackNode));
-	*pnode = element;
+	pnode->data = element.data;
 	pStack->pElement[pStack->currentElementCount] = *pnode;
 	pStack->currentElementCount++;
 	return (TRUE);

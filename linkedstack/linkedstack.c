@@ -20,17 +20,11 @@ int pushLS(LinkedStack* pStack, StackNode element)
 	pNode = (StackNode *)calloc(1, sizeof(StackNode));
 	if (!pNode)
 		return (FALSE);
-	//[구조체 할당]
-	//(1)
-	*pNode = element;
-
-	//(2)
-	//pNode->data = element.data;
+	pNode->data = element.data;
 	if (pStack->currentElementCount == 0)
 		pStack->pTopElement->pLink = pNode;
-	else
+	else if (pStack->currentElementCount != 0)
 	{
-	if (pStack->currentElementCount != 0)
 		pNode->pLink = pStack->pTopElement->pLink; 
 		pStack->pTopElement->pLink = pNode;
 	}
