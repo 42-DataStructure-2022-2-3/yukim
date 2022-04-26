@@ -141,7 +141,7 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 		}
 		else if (infix[i].type == rparen) // 닫는 괄호
 		{	
-			while (opStack->pTopElement->pLink->data.type) // 무한 반복
+			while (opStack->currentElementCount > 0) // 무한 반복
 			{
 				popNode = popLS(opStack);
 				if (popNode->data.type == lparen)

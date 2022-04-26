@@ -18,13 +18,13 @@ ArrayStack* createArrayStack(int maxElementCount)
 
 int pushAS(ArrayStack* pStack, StackNode element)
 {
-	StackNode	*pnode;
+	// StackNode	*pnode;
 
 	if (isArrayStackFull(pStack))
 		return (FALSE);
-	pnode = (StackNode *)calloc(1, sizeof(StackNode));
-	pnode->data = element.data;
-	pStack->pElement[pStack->currentElementCount] = *pnode;
+	// pnode = (StackNode *)calloc(1, sizeof(StackNode));
+	// pnode->data = element.data;
+	pStack->pElement[pStack->currentElementCount].data = element.data;
 	pStack->currentElementCount++;
 	return (TRUE);
 }
@@ -38,8 +38,8 @@ StackNode* popAS(ArrayStack* pStack)
 		return (NULL);
 	copynode = (StackNode *)calloc(1, sizeof(StackNode));
 	popnode = &pStack->pElement[pStack->currentElementCount - 1];
-	*copynode = *popnode;
-	bzero(popnode, sizeof(StackNode));
+	*copynode = *popnode; // 수정 필요
+	bzero(popnode, sizeof(StackNode)); // bzero표준이 아님 memset추천! 표준보면서 공부
 	pStack->currentElementCount--;
 	return (copynode);
 }
