@@ -155,9 +155,15 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 				j++;
 			}
 		}
+		else if (infix[i].type == lparen) // 여는 괄호
+		{
+			element.data.type = infix[i].type;
+			element.data.value = infix[i].value;
+			pushLS(opStack, element);	
+		}
 		else // operator 연산자 우선 순위
 		{
-			while ((opStack->currentElementCount > 0) && (peekLS(opStack)->data.value <= infix[i].value) )
+			while ((opStack->currentElementCount > 0) && (peekLS(opStack)->data.value <= infix[i].value) && (peekLS(opStack)->data.type != lparen))
 			{
 				// if (isLinkedStackEmpty(opStack))
 				// 	break ;
