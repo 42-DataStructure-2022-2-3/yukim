@@ -165,10 +165,6 @@ ExprToken* infixToPostfix(ExprToken* infix, int size) // 중위표기 를 후위
 		{
 			while ((opStack->currentElementCount > 0) && (peekLS(opStack)->data.value <= infix[i].value) && (peekLS(opStack)->data.type != lparen))
 			{
-				// if (isLinkedStackEmpty(opStack))
-				// 	break ;
-				// if (peekLS(opStack)->data.value > infix[i].value)
-				// 	break ;
 				popNode = popLS(opStack);
 				postfix[j].type = popNode->data.type;
 				postfix[j].value = popNode->data.value;
