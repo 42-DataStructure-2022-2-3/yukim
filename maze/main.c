@@ -18,10 +18,10 @@ int main()
 	startPos.x = 0;
 	startPos.y = 0;
 	startPos.direction = 0;
-	endPos.x = 6;
-	endPos.y = 1;
+	endPos.x = 7;
+	endPos.y = 7;
 	endPos.direction = 0;
-	// printMaze(map);
+	printMaze(map);
 	findPath(map, startPos, endPos, pStack);
 	return 0;
 }

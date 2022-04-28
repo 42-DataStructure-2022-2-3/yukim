@@ -63,7 +63,7 @@ void findPath(int mazeArray[HEIGHT][WIDTH], MapPosition startPos, MapPosition en
 					printf("탈출 실패\n");
 					return ;
 				}
-				printf("pTopElement->pLink->data(%d, %d)\n", pStack->pTopElement->pLink->data.x, pStack->pTopElement->pLink->data.y);
+				//printf("pTopElement->pLink->data(%d, %d)\n", pStack->pTopElement->pLink->data.x, pStack->pTopElement->pLink->data.y);
 				currPos.x = pStack->pTopElement->pLink->data.x;
 				currPos.y = pStack->pTopElement->pLink->data.y;
 			}
@@ -102,9 +102,11 @@ void printMaze(int mazeArray[HEIGHT][WIDTH])
 		for (int j = 0; j < WIDTH; j++)
 		{
 			if (mazeArray[i][j] == SUCESS)
-				printf("  ");
-			else
+				printf(">>");
+			else if (mazeArray[i][j] == WALL)
 				printf("%d ", mazeArray[i][j]);
+			else //VISIT
+				printf("  ");
 		}
 		printf("|\n");
 	}
