@@ -27,7 +27,7 @@ int	checkMovable(int mazeArray[HEIGHT][WIDTH], MapPosition pos)
 			direction = 3;
 	}
 	//갈 수 있는 곳이 없는 경우
-	printf("current (%d, %d) direction : %d\n", pos.x, pos.y, direction);
+	// printf("current (%d, %d) direction : %d\n", pos.x, pos.y, direction);
 	return (direction);
 }		
 
@@ -47,7 +47,7 @@ void findPath(int mazeArray[HEIGHT][WIDTH], MapPosition startPos, MapPosition en
 		if (mazeArray[endPos.y][endPos.x] == 2)
 			break ;
 		direction = checkMovable(mazeArray, currPos);
-		printf("mazeArray[%d][%d] = %d, direction : %d\n", y, x, mazeArray[y][x], direction);
+		// printf("mazeArray[%d][%d] = %d, direction : %d\n", y, x, mazeArray[y][x], direction);
 		if (direction != -1)
 		{
 			currPos.x = x + DIRECTION_OFFSETS[direction][0];
@@ -63,11 +63,13 @@ void findPath(int mazeArray[HEIGHT][WIDTH], MapPosition startPos, MapPosition en
 					printf("탈출 실패\n");
 					return ;
 				}
-				currPos.x = pStack->pTopElement->data.x;
-				currPos.y = pStack->pTopElement->data.y;
+				printf("pTopElement->pLink->data(%d, %d)\n", pStack->pTopElement->pLink->data.x, pStack->pTopElement->pLink->data.y);
+				currPos.x = pStack->pTopElement->pLink->data.x;
+				currPos.y = pStack->pTopElement->pLink->data.y;
 			}
 		}
 	}
+	showPath(pStack, mazeArray);
 	printf("탈출 성공\n");
 }
 
@@ -79,10 +81,17 @@ int pushLSMapPosition(LinkedStack* pStack, MapPosition data)
 	return (pushLS(pStack, pNode));
 }
 
-// void showPath(LinkedStack *pStack, int mazeArray[HEIGHT][WIDTH])
-// {
+void showPath(LinkedStack *pStack, int mazeArray[HEIGHT][WIDTH])
+{
+	StackNode	*popNode;
 
-// }
+	while (pStack->currentElementCount > 0)
+	{	
+		popNode = popLS(pStack);
+		mazeArray[popNode->data.y][popNode->data.x] = SUCESS;
+	}
+	printMaze(mazeArray);
+}
 
 void printMaze(int mazeArray[HEIGHT][WIDTH])
 {
@@ -92,7 +101,10 @@ void printMaze(int mazeArray[HEIGHT][WIDTH])
 		printf("| ");
 		for (int j = 0; j < WIDTH; j++)
 		{
-			printf("%d ", mazeArray[i][j]);
+			if (mazeArray[i][j] == SUCESS)
+				printf("  ");
+			else
+				printf("%d ", mazeArray[i][j]);
 		}
 		printf("|\n");
 	}

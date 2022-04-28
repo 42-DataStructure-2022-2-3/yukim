@@ -77,15 +77,15 @@ int isLinkedStackEmpty(LinkedStack* pStack)
 	return (pStack->currentElementCount == 0);
 }
 
-// void printLinkedStack(LinkedStack* pStack) 
-// {
-// 	StackNode	*curr;
-// 	curr = pStack->pTopElement;
-// 	while (curr)
-// 	{
-// 		if (!curr->pLink)
-// 			break ;
-// 		curr = curr->pLink;
-// 		printf("%c\n", curr->data);
-// 	}
-// }
+void printLinkedStack(LinkedStack* pStack) 
+{
+	StackNode	*curr;
+	curr = pStack->pTopElement;
+	while (curr)
+	{
+		if (!curr->pLink)
+			break ;
+		curr = curr->pLink;
+		printf("(%d, %d)\n", curr->data.x, curr->data.y);
+	}
+}

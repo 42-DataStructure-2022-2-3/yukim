@@ -14,7 +14,7 @@ static int DIRECTION_OFFSETS[NUM_DIRECTIONS][2] = {
 	{-1, 0}			// 서
 };
 
-enum PosStatus { NOT_VISIT = 0, WALL = 1 , VISIT = 2  };
+enum PosStatus { NOT_VISIT = 0, WALL = 1 , VISIT = 2 , SUCESS = 3 };
 
 typedef struct MapPositionType
 {
