@@ -15,7 +15,7 @@ int enqueueAQ(ArrayQueue* pQueue, ArrayQueueNode element)
         return (FALSE);
 
     pQueue->pElement[pQueue->rear].data = element.data;
-     printf("enqueue : %c\n", pQueue->pElement[pQueue->rear].data);
+     printf("+ enqueue '%c'\n", pQueue->pElement[pQueue->rear].data);
     pQueue->rear = (pQueue->rear + 1) % pQueue->maxElementCount;
     // maxElementCount = 4, pQueue->rear = 3 일 경우에는 다음에 추가될 노드는 0번 인덱스로 가야함 
     pQueue->currentElementCount++;
@@ -36,7 +36,7 @@ ArrayQueueNode *dequeueAQ(ArrayQueue* pQueue)
     pQueue->pElement[pQueue->front].data = 0;
     pQueue->front = (pQueue->front + 1) % pQueue->maxElementCount;
     pQueue->currentElementCount--;
-    printf("dequeue : %c\n", retNode->data);
+    printf("- dequeue '%c'\n", retNode->data);
     return (retNode);
 }
 ArrayQueueNode *peekAQ(ArrayQueue* pQueue)

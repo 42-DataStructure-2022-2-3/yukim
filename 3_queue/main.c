@@ -9,15 +9,16 @@ int main()
     queue = createArrayQueue(5);
     for (int i = 0; i < 5; i++)
     {
-        element.data = 'a' + i;
+        element.data = 'A' + i;
         enqueueAQ(queue, element);
     }
+    printf("isArrayQueueFull? [%d]\n", isArrayQueueFull(queue));
+    printf("isArrayQueueEmpty? [%d]\n", isArrayQueueEmpty(queue));
     for (int i = 0; i < 2; i++)
     {
         dequeueAQ(queue);
     }
-    printf("isArrayQueueFull? [%d]\n", isArrayQueueFull(queue));
-    printf("isArrayQueueEmpty? [%d]\n", isArrayQueueEmpty(queue));
+    printf("PeekQueue = '%c'\n", peekAQ(queue)->data);
     displayArrayQueue(queue);
     return (0);
 }
