@@ -19,6 +19,9 @@ int main()
         dequeueAQ(queue);
     }
     printf("PeekQueue = '%c'\n", peekAQ(queue)->data);
+    element.data = 'F';
+    enqueueAQ(queue, element);
+    printf("PeekQueue = '%c'\n", peekAQ(queue)->data);
     displayArrayQueue(queue);
     return (0);
 }
