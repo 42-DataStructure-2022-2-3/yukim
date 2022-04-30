@@ -95,9 +95,10 @@ void displayLinkedQueue(Linkedqueue *pQueue)
 	{
 		printf("front <-[");
 		curr = pQueue->pFrontNode;
-		while (curr->pLink)
+		while (curr)
 		{
-			printf("%c", curr->data);
+			if (curr)
+				printf("%c", curr->data);
 			if (curr->pLink)
 				printf(", ");
 			curr = curr->pLink;
