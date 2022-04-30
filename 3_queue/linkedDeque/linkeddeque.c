@@ -55,7 +55,7 @@ DequeNode* deleteFrontLD(LinkedDeque* pDeque)
 	if (isLinkedDequeEmpty(pDeque))
 		return (NULL);
 	retNode = pDeque->pFrontNode;
-	if (pDeque->currentElementCount > 2)
+	if (pDeque->currentElementCount > 1)
 	{	
 		pDeque->pFrontNode = retNode->pRLink;
 		pDeque->pFrontNode->pLLink = NULL;
@@ -77,7 +77,7 @@ DequeNode* deleteRearLD(LinkedDeque* pDeque)
 	if (isLinkedDequeEmpty(pDeque))
 		return (NULL);
 	retNode = pDeque->pRearNode;
-	if (pDeque->currentElementCount > 2)
+	if (pDeque->currentElementCount > 1)
 	{	
 		pDeque->pRearNode = retNode->pLLink;
 		pDeque->pRearNode->pRLink = NULL;
@@ -114,11 +114,11 @@ void deleteLinkedDeque(LinkedDeque* pDeque)
 	{
 		while (pDeque->currentElementCount > 0)
 		{
-			// if (pDeque->currentElementCount > 1)
-			// {
-			// 	tmp = deleteRearLD(pDeque);
-			// 	free(tmp);
-			// }
+			if (pDeque->currentElementCount > 1)
+			{
+				tmp = deleteRearLD(pDeque);
+				free(tmp);
+			}
 			tmp = deleteFrontLD(pDeque);
 			free(tmp);
 		}
