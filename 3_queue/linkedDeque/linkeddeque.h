@@ -2,7 +2,7 @@
 #define _LINKED_DEQUE_
 
 #include <stdio.h>
-#include <stdlib.h>e
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct DequeNodeType
