@@ -25,7 +25,9 @@ int insertFrontLD(LinkedDeque* pDeque, DequeNode element)
 		insertNode->pRLink = pDeque->pFrontNode;
 		pDeque->pFrontNode = insertNode;
 	}
+	printf("insertFrontLD '%c'\n", insertNode->data);
 	pDeque->currentElementCount++;
+	return (TRUE);
 }
 
 int insertRearLD(LinkedDeque* pDeque, DequeNode element)
@@ -45,7 +47,9 @@ int insertRearLD(LinkedDeque* pDeque, DequeNode element)
 		insertNode->pLLink = pDeque->pRearNode;
 		pDeque->pRearNode = insertNode;
 	}
+	printf("insertRearLD '%c'\n", insertNode->data);
 	pDeque->currentElementCount++;
+	return (TRUE);
 }
 
 DequeNode* deleteFrontLD(LinkedDeque* pDeque)
@@ -66,6 +70,7 @@ DequeNode* deleteFrontLD(LinkedDeque* pDeque)
 		pDeque->pFrontNode = NULL;
 		pDeque->pRearNode = NULL;
 	}
+	printf("deleteFrontLD '%c'\n", retNode->data);
 	pDeque->currentElementCount--;
 	return (retNode);
 }
@@ -88,6 +93,7 @@ DequeNode* deleteRearLD(LinkedDeque* pDeque)
 		pDeque->pFrontNode = NULL;
 		pDeque->pRearNode = NULL;
 	}
+	printf("deleteRearLD '%c'\n", retNode->data);
 	pDeque->currentElementCount--;
 	return (retNode);
 }
@@ -96,6 +102,7 @@ DequeNode* peekFrontLD(LinkedDeque* pDeque)
 {
 	if (isLinkedDequeEmpty(pDeque))
 		return (NULL);
+	printf("peekFrontLD = '%c'\n", pDeque->pFrontNode->data);
 	return (pDeque->pFrontNode);
 }
 
@@ -103,6 +110,7 @@ DequeNode* peekRearLD(LinkedDeque* pDeque)
 {
 	if (isLinkedDequeEmpty(pDeque))
 		return (NULL);
+	printf("peekRearLD = '%c'\n", pDeque->pRearNode->data);
 	return (pDeque->pRearNode);
 }
 
@@ -135,4 +143,24 @@ int isLinkedDequeFull(LinkedDeque* pDeque)
 int isLinkedDequeEmpty(LinkedDeque* pDeque)
 {
 	return (pDeque->currentElementCount == 0);
+}
+
+void	displayLinkedDeque(LinkedDeque* pDeque)
+{
+	DequeNode	*curr;
+
+	if (pDeque->currentElementCount > 0)
+	{
+		printf("front <-[");
+		curr = pDeque->pFrontNode;
+		while (curr)
+		{
+			if (curr)
+				printf("%c", curr->data);
+			if (curr->pRLink)
+				printf(", ");
+			curr = curr->pRLink;
+		}
+		printf("]-> rear\n");
+	}
 }

@@ -29,6 +29,7 @@ DequeNode* peekRearLD(LinkedDeque* pDeque);
 void deleteLinkedDeque(LinkedDeque* pDeque);
 int isLinkedDequeFull(LinkedDeque* pDeque);
 int isLinkedDequeEmpty(LinkedDeque* pDeque);
+void	displayLinkedDeque(LinkedDeque* pDeque);
 
 #endif
 
