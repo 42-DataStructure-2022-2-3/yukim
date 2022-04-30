@@ -46,6 +46,7 @@ ArrayQueueNode *peekAQ(ArrayQueue* pQueue)
 
     if(isArrayQueueEmpty(pQueue))
         return (NULL);
+    printf("peekQueue = '%c'\n", pQueue->pElement[pQueue->front].data);
     return (&pQueue->pElement[pQueue->front]);
 }
 
@@ -58,7 +59,7 @@ void deleteArrayQueue(ArrayQueue* pQueue)
 
 int isArrayQueueFull(ArrayQueue* pQueue)
 { 
-    return (pQueue->currentElementCount == pQueue->maxElementCount);
+    return (pQueue->currentElementCount != 0 && pQueue->maxElementCount != pQueue->currentElementCount && pQueue->front == pQueue->rear);
 }
 
 int isArrayQueueEmpty(ArrayQueue* pQueue)
