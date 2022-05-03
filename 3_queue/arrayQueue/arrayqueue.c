@@ -41,9 +41,6 @@ ArrayQueueNode *dequeueAQ(ArrayQueue* pQueue)
 }
 ArrayQueueNode *peekAQ(ArrayQueue* pQueue)
 {
-
-    ArrayQueueNode  *retNode;
-
     if(isArrayQueueEmpty(pQueue))
         return (NULL);
     printf("peekQueue = '%c'\n", pQueue->pElement[pQueue->front].data);
