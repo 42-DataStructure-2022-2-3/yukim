@@ -36,10 +36,16 @@ queueNode*	processServiceNodeStart(int currentTime, Linkedqueue *pWaitQueue)
 		return (NULL);
 	if (peekLQ(pWaitQueue)->data.status == arrival)
 	{
-		pServiceNode = dequeueLQ(pWaitQueue);
+		pServiceNode = peekLQ(pWaitQueue);
 		pServiceNode->data.status = start;
 		pServiceNode->data.startTime = currentTime;
 		pServiceNode->data.endTime = pServiceNode->data.startTime + pServiceNode->data.serviceTime;
+	}
+	else if (peekLQ(pWaitQueue)->data.status == end)
+	{
+		pServiceNode = dequeueLQ(pWaitQueue);
+		free(pServiceNode);
+		processServiceNodeStart(currentTime, pWaitQueue);
 	}
 	return (pServiceNode);
 }
