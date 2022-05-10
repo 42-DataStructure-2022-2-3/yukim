@@ -13,8 +13,12 @@ int main()
 	currentTime = 0;
 	pServiceNode = NULL;
 
-	for (int i = 1; i <= 3; i++)
-		insertCustomer(i, i, pArrivalQueue);
+	insertCustomer(0, 3, pArrivalQueue);
+	insertCustomer(2, 2, pArrivalQueue);
+	insertCustomer(4, 1, pArrivalQueue);
+	insertCustomer(6, 1, pArrivalQueue);
+	insertCustomer(8, 3, pArrivalQueue);
+	
 	while (currentTime < 100)
 	{
 		processArrival(currentTime, pArrivalQueue, pWaitQueue);
