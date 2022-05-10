@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+# include "simdef.h"
 
 typedef struct queueNodeType
 {
@@ -25,7 +26,7 @@ queueNode* peekLQ(Linkedqueue* pQueue);
 void deleteLinkedQueue(Linkedqueue* pQueue);
 int isLinkedQueueFull(Linkedqueue* pQueue);
 int isLinkedQueueEmpty(Linkedqueue* pQueue);
-void displayLinkedQueue(Linkedqueue *pQueue);
+
 #endif
 
 #ifndef _COMMON_QUEUE_DEF_

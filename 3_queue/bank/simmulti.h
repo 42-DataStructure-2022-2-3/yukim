@@ -1,7 +1,6 @@
 #ifndef _SIM_MULTI_
 # define _SIM_MULTI_
 
-# include "simdef.h"
 # include "simlinkedqueue.h"
 
 void		insertCustomer(int arrivalTime, int processTime, Linkedqueue *pQueue);

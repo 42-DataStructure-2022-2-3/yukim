@@ -1,4 +1,4 @@
-#include "linkedqueue.h"
+#include "simlinkedqueue.h"
 
 Linkedqueue* createLinkedQueue()
 {
@@ -26,7 +26,6 @@ int enqueueLQ(Linkedqueue* pQueue, queueNode element)
 		pQueue->pRearNode->pLink = insertNode;
 		pQueue->pRearNode = insertNode;
 	}
-	printf("+ enqueue'%c'\n", pQueue->pRearNode->data);
 	pQueue->currentElementCount++;
 	return (TRUE);
 }
@@ -49,7 +48,6 @@ queueNode* dequeueLQ(Linkedqueue* pQueue)
 		pQueue->pRearNode = NULL;
 	}
 	pQueue->currentElementCount--;
-	printf("- dequeue '%c'\n", retNode->data);
 	return (retNode);
 }
 
@@ -57,7 +55,6 @@ queueNode* peekLQ(Linkedqueue* pQueue)
 {
 	if (isLinkedQueueEmpty(pQueue))
 		return (NULL);
-	printf("peekQueue = '%c'\n", pQueue->pFrontNode->data);
 	return (pQueue->pFrontNode);
 }
 
@@ -85,24 +82,4 @@ int isLinkedQueueFull(Linkedqueue* pQueue)
 int isLinkedQueueEmpty(Linkedqueue* pQueue)
 {
 	return (pQueue->currentElementCount == 0);
-}
-
-void displayLinkedQueue(Linkedqueue *pQueue)
-{
-	queueNode	*curr;
-
-	if (pQueue->currentElementCount > 0)
-	{
-		printf("front <-[");
-		curr = pQueue->pFrontNode;
-		while (curr)
-		{
-			if (curr)
-				printf("%c", curr->data);
-			if (curr->pLink)
-				printf(", ");
-			curr = curr->pLink;
-		}
-		printf("]-> rear\n");
-	}
 }

@@ -6,8 +6,11 @@ void		insertCustomer(int arrivalTime, int processTime, Linkedqueue *pQueue)
 
 	if (!pQueue)
 		return ;
+	pInsertCustomerNode.data.status = 0;
 	pInsertCustomerNode.data.arrivalTime = arrivalTime;
 	pInsertCustomerNode.data.serviceTime = processTime;
+	pInsertCustomerNode.data.startTime = 0;
+	pInsertCustomerNode.data.endTime = 0;
 	enqueueLQ(pQueue, pInsertCustomerNode);
 }
 
@@ -17,7 +20,7 @@ void		processArrival(int currentTime, Linkedqueue *pArrivalQueue, Linkedqueue *p
 
 	while (!isLinkedQueueEmpty(pArrivalQueue) && peekLQ(pArrivalQueue)->data.arrivalTime == currentTime)
 	{
-		pCustomerNode = dequeueLQ(pArrivalQueue->pFrontNode);
+		pCustomerNode = dequeueLQ(pArrivalQueue);
 		pCustomerNode->data.status = arrival;
 		enqueueLQ(pWaitQueue, *pCustomerNode);
 		free(pCustomerNode);
@@ -48,7 +51,7 @@ queueNode*	processServiceNodeEnd(int currentTime, queueNode *pServiceNode, int *
 	if (pServiceNode->data.endTime <= currentTime)
 	{
 		pServiceNode->data.status = end;
-		*pServiceUserCount++;
+		*pServiceUserCount += 1;
 		*pTotalWaitTime = *pTotalWaitTime + (pServiceNode->data.endTime - pServiceNode->data.arrivalTime);
 		free(pServiceNode);
 		return (NULL);
@@ -79,13 +82,16 @@ void		printWaitQueueStatus(int currentTime, Linkedqueue *pWaitQueue)
 {
 	queueNode	*curr;
 
-	printf("___[ printWaitQueueStatus ]___\n");
-	printf("Current Waiting Customer Count : %d\n", pWaitQueue->currentElementCount);
-	curr = peekLQ(pWaitQueue);
-	while (curr)
+	if (pWaitQueue)
 	{
-		printSimCustomer(currentTime, curr->data);
-		curr = curr->pLink;
+		printf("___[ printWaitQueueStatus ]___\n");
+		printf("Current Waiting Customer Count : %d\n", pWaitQueue->currentElementCount);
+		curr = peekLQ(pWaitQueue);
+		while (curr)
+		{
+			printSimCustomer(currentTime, curr->data);
+			curr = curr->pLink;
+		}
 	}
 }
 
