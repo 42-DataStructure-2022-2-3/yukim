@@ -47,6 +47,8 @@ queueNode*	processServiceNodeStart(int currentTime, Linkedqueue *pWaitQueue)
 		free(pServiceNode);
 		processServiceNodeStart(currentTime, pWaitQueue);
 	}
+	else
+		pServiceNode = peekLQ(pWaitQueue);	
 	return (pServiceNode);
 }
 
@@ -59,8 +61,6 @@ queueNode*	processServiceNodeEnd(int currentTime, queueNode *pServiceNode, int *
 		pServiceNode->data.status = end;
 		*pServiceUserCount += 1;
 		*pTotalWaitTime = *pTotalWaitTime + (pServiceNode->data.endTime - pServiceNode->data.arrivalTime);
-		free(pServiceNode);
-		return (NULL);
 	}
 	return (pServiceNode);
 }
@@ -91,13 +91,14 @@ void		printWaitQueueStatus(int currentTime, Linkedqueue *pWaitQueue)
 	if (pWaitQueue)
 	{
 		printf("___[ printWaitQueueStatus ]___\n");
-		printf("Current Waiting Customer Count : %d\n", pWaitQueue->currentElementCount);
-		curr = peekLQ(pWaitQueue);
-		while (curr)
-		{
-			printSimCustomer(currentTime, curr->data);
-			curr = curr->pLink;
-		}
+		printf("Current time : %d\n", currentTime);
+		printf("Current Waiting Customer Count : %d\n\n", pWaitQueue->currentElementCount);
+		// curr = peekLQ(pWaitQueue);
+		// while (curr)
+		// {
+		// 	printSimCustomer(currentTime, curr->data);
+		// 	curr = curr->pLink;
+		// }
 	}
 }
 
