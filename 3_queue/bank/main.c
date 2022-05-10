@@ -19,7 +19,7 @@ int main()
 	insertCustomer(6, 1, pArrivalQueue);
 	insertCustomer(8, 3, pArrivalQueue);
 	
-	while (currentTime < 100)
+	while (currentTime < 10)
 	{
 		processArrival(currentTime, pArrivalQueue, pWaitQueue);
 		processServiceNodeEnd(currentTime, pServiceNode, &serviceUserCount, &totalWaitTime);
@@ -28,5 +28,7 @@ int main()
 		currentTime++;
 	}
 	// printReport(pWaitQueue, serviceUserCount, totalWaitTime);
+	// deleteLinkedQueue(pArrivalQueue);
+	// deleteLinkedQueue(pWaitQueue);
 	return (0);
 }
