@@ -24,7 +24,7 @@ int main()
 		processArrival(currentTime, pArrivalQueue, pWaitQueue);
 		processServiceNodeEnd(currentTime, pServiceNode, &serviceUserCount, &totalWaitTime);
 		pServiceNode = processServiceNodeStart(currentTime, pWaitQueue);
-		printWaitQueueStatus(currentTime, pWaitQueue);
+		// printWaitQueueStatus(currentTime, pWaitQueue);
 		currentTime++;
 	}
 	printReport(pWaitQueue, serviceUserCount, totalWaitTime);

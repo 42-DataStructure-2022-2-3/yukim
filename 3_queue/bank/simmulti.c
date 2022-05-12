@@ -45,7 +45,7 @@ queueNode*	processServiceNodeStart(int currentTime, Linkedqueue *pWaitQueue)
 	{
 		pServiceNode = dequeueLQ(pWaitQueue);
 		free(pServiceNode);
-		processServiceNodeStart(currentTime, pWaitQueue);
+		return (NULL);
 	}
 	else
 		pServiceNode = peekLQ(pWaitQueue);	
