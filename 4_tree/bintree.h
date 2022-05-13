@@ -1,6 +1,10 @@
 #ifndef _BIN_TREE_
 #define _BIN_TREE_
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 typedef struct BinTreeNodeType
 {
 	char data;
@@ -22,7 +26,7 @@ BinTreeNode* insertRightChildNodeBT(BinTreeNode* pParentNode, BinTreeNode elemen
 BinTreeNode* getLeftChildNodeBT(BinTreeNode* pNode);
 BinTreeNode* getRightChildNodeBT(BinTreeNode* pNode);
 void deleteBinTree(BinTree* pBinTree);
-void deleteBinTreeNode(BinTreeNode* pNode);
+void deleteBinTreeNode(BinTreeNode** pNode);
 
 #endif
 
