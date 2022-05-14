@@ -1,90 +1,12 @@
 #include "bintree.h"
 
-BinTree* makeBinTree(BinTreeNode rootNode)
-{
-    BinTree *pTree;
-    BinTreeNode *pRootNode;
-
-    pTree = calloc(1, sizeof(BinTree));
-    pRootNode = calloc(1, sizeof(BinTreeNode));
-    pTree->pRootNode = pRootNode;
-    *pRootNode = rootNode;
-
-    return pTree;
-}
-BinTreeNode* getRootNodeBT(BinTree* pBinTree)
-{
-    return (pBinTree->pRootNode);
-}
-/* 
-
- parentnode 반환? 생성한 childnode 반환?
- 
- 만약 이미 자식노드가 있다면? 
-    1. 재귀로 맨 밑에까지 가서 알아서 넣어준다
-    2. 이미 자식이 있다는 에러를 준다.
-
-*/
-BinTreeNode* insertLeftChildNodeBT(BinTreeNode* pParentNode, BinTreeNode element)
-{
-    BinTreeNode *pChild;
-    
-    if (pParentNode->pLeftChild)
-    {
-        printf ("LeftChild Node already exist \n");
-        return (NULL);
-    }
-    pChild = calloc(1, sizeof(BinTreeNode));
-    *pChild = element;
-    pParentNode->pLeftChild = pChild;
-    return pChild;
-}
-BinTreeNode* insertRightChildNodeBT(BinTreeNode* pParentNode, BinTreeNode element)
-{
-    BinTreeNode *pChild;
-    
-    if (pParentNode->pRightChild)
-    {
-        printf ("RightChild Node already exist \n");
-        return (NULL);
-    }
-    pChild = calloc(1, sizeof(BinTreeNode));
-    *pChild = element;
-    pParentNode->pRightChild = pChild;
-    return pChild;
-}
-BinTreeNode* getLeftChildNodeBT(BinTreeNode* pNode)
-{
-    return (pNode->pLeftChild);
-}
-BinTreeNode* getRightChildNodeBT(BinTreeNode* pNode)
-{
-    return (pNode->pRightChild);
-}
-void deleteBinTree(BinTree* pBinTree)
-{
-    if (pBinTree)
-    {
-        deleteBinTreeNode(&pBinTree->pRootNode);
-        free(pBinTree);
-        memset(pBinTree, 0, sizeof(BinTree));
-    }
-}
-// 댕글링 포인터 처리?
-void deleteBinTreeNode(BinTreeNode** pNode)
-{
-    if (*pNode)
-    {
-        deleteBinTreeNode(&(*pNode)->pLeftChild);
-        deleteBinTreeNode(&(*pNode)->pRightChild);
-        free(*pNode);
-        *pNode = NULL;
-    }
-}
 static BinTreeNode *searchRecursive(BinTreeNode *pNode, BinTreeNode key)
 {
     if (!pNode)
+    {
+        printf("It doesn't exist.\n");
         return (NULL);
+    }
     if (key.data == pNode->data)
         return (pNode);
     else if ( key.data < pNode->data)
@@ -104,7 +26,7 @@ static BinTreeNode *insertBSTNodeRecur(BinTreeNode *pNode, BinTreeNode key)
 {
     if (key.data == pNode->data)
     {
-        printf("이미 존재하는 값입니다.\n");
+        printf("It already exists.\n");
         return (NULL);
     }
     else if ( key.data < pNode->data)
@@ -173,27 +95,31 @@ static BinTreeNode* deleteLeafNode(BinTree *pBinTree, BinTreeNode key)
     }
     return pDeleteNode;
 }
-static BinTreeNode *deleteOnlyChildNode(BinTree *pBinTree, BinTreeNode key)
+static BinTreeNode *deleteOnlyChildNode(BinTree *pBinTree, BinTreeNode *pDeleteNode)
 {
-    BinTreeNode *pDeleteNode;
     BinTreeNode *parentNode;
 
-    parentNode = deleteBSTNodeRecur(pBinTree->pRootNode, key);
-        if (pDeleteNode->pLeftChild)
-        {
-            if (parentNode->pLeftChild->data == pDeleteNode->data)
-                parentNode->pLeftChild = pDeleteNode->pLeftChild;
-            else 
-                parentNode->pRightChild = pDeleteNode->pLeftChild;
-        }
-        else
-        {
-            if (parentNode->pLeftChild->data == pDeleteNode->data)
-                parentNode->pLeftChild = pDeleteNode->pRightChild;
-            else 
-                parentNode->pRightChild = pDeleteNode->pRightChild;
-        }
-        return pDeleteNode;
+    if (pDeleteNode->data == pBinTree->pRootNode->data)
+    {
+        pBinTree->pRootNode = pDeleteNode->pLeftChild;
+        return (pDeleteNode);
+    }
+    parentNode = deleteBSTNodeRecur(pBinTree->pRootNode, *pDeleteNode);
+    if (pDeleteNode->pLeftChild)
+    {
+        if (parentNode->pLeftChild->data == pDeleteNode->data)
+            parentNode->pLeftChild = pDeleteNode->pLeftChild;
+        else 
+            parentNode->pRightChild = pDeleteNode->pLeftChild;
+    }
+    else
+    {
+        if (parentNode->pLeftChild->data == pDeleteNode->data)
+            parentNode->pLeftChild = pDeleteNode->pRightChild;
+        else 
+            parentNode->pRightChild = pDeleteNode->pRightChild;
+    }
+    return pDeleteNode;
 }
 
 
@@ -219,7 +145,7 @@ BinTreeNode* deleteBSTNode(BinTree *pBinTree, BinTreeNode key)
         }
         if (pDeleteNode->data != pBinTree->pRootNode->data)//지울노드가 루트노드가 아닌경우
         {
-            parentNode = deleteBSTNodeRecur(pBinTree, key);
+            parentNode = deleteBSTNodeRecur(pBinTree->pRootNode, key);
             if (parentNode->pLeftChild->data == pDeleteNode->data) // 지울노드가 왼쪽에있다
                 parentNode->pLeftChild = pCandidate;
             else// 지울 노드가 오른쪽에있다
@@ -230,6 +156,9 @@ BinTreeNode* deleteBSTNode(BinTree *pBinTree, BinTreeNode key)
         pCandidate->pRightChild = pDeleteNode->pRightChild;            
     }
     else// 자식이 1개인 경우
-        pDeleteNode = deleteOnlyChildNode(pBinTree, key);
+        pDeleteNode = deleteOnlyChildNode(pBinTree, pDeleteNode);
+
+    pDeleteNode->pLeftChild = NULL;
+    pDeleteNode->pRightChild = NULL;
     return pDeleteNode;
 }
