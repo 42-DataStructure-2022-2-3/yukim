@@ -27,7 +27,7 @@ typedef struct LinkedGraphType
 	int maxVertexCount;		// �ִ� ��� ����
 	int currentVertexCount;	// ���� ���Ǵ� ����� ����
 	int graphType;			// 1-Undirected, 2-Directed
-	LinkedList *pAdjEdge;		// ���� ������ ���� 2���� Linked
+	LinkedList **ppAdjEdge;		// ���� ������ ���� 2���� Linked
 	int *pVertex;			// ��� ������ ���� 1���� Linked
 } LinkedGraph;
 
@@ -51,6 +51,7 @@ ListNode* getLLElement(LinkedList* pList, int position);
 void clearLinkedList(LinkedList* pList);
 int getLinkedListLength(LinkedList* pList);
 void deleteLinkedList(LinkedList* pList);
+void displayLinkedList(LinkedList *pList);
 #endif
 
 #ifndef _COMMON_LIST_DEF_

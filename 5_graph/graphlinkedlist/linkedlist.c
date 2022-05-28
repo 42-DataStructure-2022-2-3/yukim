@@ -36,13 +36,14 @@ int removeLLElement(LinkedList* pList, int position)
 	ListNode	*curr;
 	ListNode	*delNode;
 
-	if (position < 0 || pList->currentElementCount <= position)
+	if (position < 0 || pList->currentElementCount <= position - 1)
 	{
 		printf("Wrong Approach\n");
 		return (FALSE);
 	}
+	
 	curr = &pList->headerNode;
-	for (int i = 0; i < position; i++)
+	for (int i = 0; i < position - 1; i++)
 		curr = curr->pLink;
 	delNode = curr->pLink;
 	curr->pLink = delNode->pLink;
@@ -93,10 +94,9 @@ void displayLinkedList(LinkedList *pList)
 	printf("Current List Length : %d\n", pList->currentElementCount);
 	for (int i = 0; i < pList->currentElementCount; i++)
 	{
-		printf("%d",pNode->data);
+		printf("tovertexID : %d\n",pNode->data.vertexID);
+		printf("weight : %d\n",pNode->data.weight);
 		pNode = pNode->pLink;
-		if (i < pList->currentElementCount - 1)
-			printf(" -> ");
 	}
 	printf("\n");
 	return ;
