@@ -28,7 +28,8 @@ typedef struct LinkedGraphType
 	int currentVertexCount;	// ���� ���Ǵ� ����� ����
 	int graphType;			// 1-Undirected, 2-Directed
 	LinkedList **ppAdjEdge;		// ���� ������ ���� 2���� Linked
-	int *pVertex;			// ��� ������ ���� 1���� Linked
+	int *pVertex;	
+	int *visited;		// ��� ������ ���� 1���� Linked
 } LinkedGraph;
 
 LinkedGraph* createLinkedGraph(int maxVertexCount);
@@ -68,4 +69,7 @@ void displayLinkedList(LinkedList *pList);
 
 #define GRAPH_UNDIRECTED	1
 #define GRAPH_DIRECTED		2
+
+#define VISITED				1
+#define NOT_VISITED			0
 #endif

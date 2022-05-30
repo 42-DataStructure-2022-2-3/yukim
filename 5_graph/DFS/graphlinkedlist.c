@@ -9,6 +9,7 @@ LinkedGraph* createLinkedGraph(int maxVertexCount)
 	pGraph->maxVertexCount = maxVertexCount;
 	pGraph->graphType = GRAPH_UNDIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
@@ -28,6 +29,7 @@ LinkedGraph* createLinkedDirectedGraph(int maxVertexCount)
 	pGraph->graphType = GRAPH_DIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
 		pGraph->ppAdjEdge[i] = createLinkedList();

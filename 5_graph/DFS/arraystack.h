@@ -7,7 +7,7 @@
 
 typedef struct StackNodeType
 {
-	char data;
+	int data;
 } StackNode;
 
 typedef struct ArrayStackType
