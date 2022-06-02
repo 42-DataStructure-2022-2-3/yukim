@@ -55,3 +55,71 @@ HeapBucket *orderedge(LinkedGraph *pGraph)
 	}
 	return ret;
 }
+
+LinkedGraph	*mstPrim(LinkedGraph *pGraph, int startvertexID)
+{
+	LinkedGraph *ret;
+	ret = createLinkedGraph(pGraph->maxVertexCount);
+	GraphEdge	minWeightEdge = {0,};
+	int fromvertexID;
+
+
+	addVertexLG(ret, startvertexID);
+	while (ret->currentVertexCount < pGraph->maxVertexCount)
+	{
+		minWeightEdge.fromvertexID = 0;
+		minWeightEdge.tovertexID = 0;
+		minWeightEdge.weight = 99999;
+		for (int i = 0; i < pGraph->maxVertexCount; i++)
+		{
+			if (ret->pVertex[i] == USED)
+			{
+				fromvertexID = i;
+				getMinWeightEdge(pGraph, ret, fromvertexID, &minWeightEdge);
+			}
+		}
+		addVertexLG(ret, minWeightEdge.tovertexID);
+		addEdgewithWeightLG(ret, minWeightEdge.fromvertexID, minWeightEdge.tovertexID, minWeightEdge.weight);
+	}
+
+
+	return ret;
+}
+
+void	getMinWeightEdge(LinkedGraph *pGraph, LinkedGraph *mst, int fromvertexID, GraphEdge *minWeightEdge)
+{
+	ListNode *curr;
+	curr = pGraph->ppAdjEdge[fromvertexID]->headerNode.pLink;
+
+	while (curr)
+	{
+		if (curr->data.weight < minWeightEdge->weight)
+		{
+			if (!checkEdge(mst, fromvertexID, curr->data.vertexID))
+			{
+				if (!DFS_cycle_check(fromvertexID, curr->data.vertexID, mst))
+				{
+					minWeightEdge->fromvertexID = fromvertexID;
+					minWeightEdge->tovertexID = curr->data.vertexID;
+					minWeightEdge->weight = curr->data.weight;
+				}
+			}
+		}
+		curr = curr->pLink;
+	}
+}
+
+int checkEdge(LinkedGraph *pGraph, int fromvertexID, int tovertexID)
+{
+	ListNode *curr;
+
+	curr = pGraph->ppAdjEdge[fromvertexID]->headerNode.pLink;
+
+	while (curr)
+	{
+		if (curr->data.vertexID == tovertexID)
+			return TRUE;
+		curr = curr->pLink;
+	}
+	return FALSE;
+}

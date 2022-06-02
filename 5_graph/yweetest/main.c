@@ -3,7 +3,7 @@
 
 int main()
 {
-	LinkedGraph *pGraph = createLinkedDirectedGraph(6);
+	LinkedGraph *pGraph = createLinkedGraph(6);
 
 	addVertexLG(pGraph, 0);
 	addVertexLG(pGraph, 1);
@@ -20,7 +20,7 @@ int main()
 	addEdgewithWeightLG(pGraph, 3, 5, 5);
 	addEdgewithWeightLG(pGraph, 4, 5, 6);
 
-	LinkedGraph *mst = mstKruskal(pGraph);
+	LinkedGraph *mst = mstPrim(pGraph, 4);
 	displayLinkedGraph(mst);
 	return 0;
 }
