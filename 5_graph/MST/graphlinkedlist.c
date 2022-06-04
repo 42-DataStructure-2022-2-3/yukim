@@ -9,6 +9,7 @@ LinkedGraph* createLinkedGraph(int maxVertexCount)
 	pGraph->maxVertexCount = maxVertexCount;
 	pGraph->graphType = GRAPH_UNDIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
@@ -28,6 +29,7 @@ LinkedGraph* createLinkedDirectedGraph(int maxVertexCount)
 	pGraph->graphType = GRAPH_DIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
 		pGraph->ppAdjEdge[i] = createLinkedList();
@@ -78,11 +80,13 @@ int addEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 	element.data.vertexID = toVertexID;
 	last_index = pGraph->ppAdjEdge[fromVertexID]->currentElementCount;
 	addLLElement(pGraph->ppAdjEdge[fromVertexID], last_index, element);
+	pGraph->edgecount++;
 	if (pGraph->graphType == GRAPH_UNDIRECTED)
 	{
 		element.data.vertexID = fromVertexID;
 		last_index = pGraph->ppAdjEdge[toVertexID]->currentElementCount;
 		addLLElement(pGraph->ppAdjEdge[toVertexID], last_index, element);
+		pGraph->edgecount++;
 	}
 	return (SUCCESS);
 }
@@ -100,11 +104,13 @@ int addEdgewithWeightAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, i
 	element.data.vertexID = toVertexID;
 	last_index = pGraph->ppAdjEdge[fromVertexID]->currentElementCount;
 	addLLElement(pGraph->ppAdjEdge[fromVertexID], last_index, element);
+	pGraph->edgecount++;
 	if (pGraph->graphType == GRAPH_UNDIRECTED)
 	{
 		element.data.vertexID = fromVertexID;
 		last_index = pGraph->ppAdjEdge[toVertexID]->currentElementCount;
 		addLLElement(pGraph->ppAdjEdge[toVertexID], last_index, element);
+		pGraph->edgecount++;
 	}
 	return (SUCCESS);
 }

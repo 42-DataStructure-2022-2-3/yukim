@@ -7,7 +7,7 @@
 
 typedef struct StackNodeType
 {
-	int data;
+	int data; //vertexID
 } StackNode;
 
 typedef struct ArrayStackType

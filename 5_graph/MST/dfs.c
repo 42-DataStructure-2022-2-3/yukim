@@ -50,36 +50,5 @@ void	traversal_DFS (int vertexID, LinkedGraph *pGraph)
 
 }
 
-int	DFS_cycle_check(int vertexID, int tovertexID, LinkedGraph *pGraph) 
-{
-	int		next;
-	ListNode	*curr;
-	ArrayStack	*pStack;
-	StackNode	element;
-
-	pStack = createArrayStack(pGraph->maxVertexCount);
-	pGraph->visited[vertexID] = VISITED;
-	element.data = vertexID;
-	pushAS(pStack, element);
-	while(!isArrayStackEmpty(pStack)) 
-	{
-		StackNode *u = popAS(pStack);
-		if (u->data == tovertexID) return TRUE; //study hard,,,,,,,,
-		vertexID = u->data;
-		curr = pGraph->ppAdjEdge[vertexID]->headerNode.pLink;
-		while (curr)
-		{ 
-			 if (pGraph->visited[curr->data.vertexID] == NOT_VISITED)
-	 		{
-				pGraph->visited[curr->data.vertexID] = VISITED;
-				element.data = curr->data.vertexID;
-				pushAS(pStack, element);
-			}
-			curr = curr->pLink;
-		}
-	}
-	return FALSE;
-}
-
 
 

@@ -1,9 +1,8 @@
-#include "graphlinkedlist.h"
 #include "mst.h"
 
 int main()
 {
-	LinkedGraph *pGraph = createLinkedDirectedGraph(6);
+	LinkedGraph *pGraph = createLinkedGraph(6);
 
 	addVertexAG(pGraph, 0);
 	addVertexAG(pGraph, 1);
@@ -20,7 +19,7 @@ int main()
 	addEdgewithWeightAG(pGraph, 3, 5, 5);
 	addEdgewithWeightAG(pGraph, 4, 5, 6);
 
-	mstKruskal(pGraph);
-	// displayLinkedGraph(pGraph);
+	LinkedGraph *mst = mstKruskal(pGraph);
+	displayLinkedGraph(mst);
 	return 0;
 }

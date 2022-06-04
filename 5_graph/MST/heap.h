@@ -6,10 +6,10 @@
 #include <stdbool.h>
 
 typedef struct HeapNodeType {
-	int data; //weight
-	int fromvertexID;
-	int tovertexID;
+	int data; // weight
 	int visited;
+	int	tovertexID;
+	int fromvertexID;
 }	HeapNode;
 
 typedef struct HeapBucketType {
@@ -19,9 +19,9 @@ typedef struct HeapBucketType {
 }	HeapBucket;
 
 HeapBucket* createHeap(size_t capacity);
-bool addMaxHeapElement(HeapBucket *pHeap, int data);
+// bool addMaxHeapElement(HeapBucket *pHeap, int data);
 bool addMinHeapElement(HeapBucket *pHeap, HeapNode element);
-int deleteMaxHeapElement(HeapBucket* pHeap);
+// int deleteMaxHeapElement(HeapBucket* pHeap);
 HeapNode *deleteMinHeapElement(HeapBucket* pHeap);
 void deleteHeap(HeapBucket* pHeap);
 size_t getSizeHeap(HeapBucket* pHeap);
