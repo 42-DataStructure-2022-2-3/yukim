@@ -6,7 +6,7 @@ LinkedGraph *mstKruskal(LinkedGraph *pGraph)
     if (!mst) return NULL;
 
     HeapBucket *minheap = orderEdge(pGraph);
-    // printHeapArray(minheap);
+    printHeapArray(minheap);
 
     for (int i = 0; i < pGraph->edgecount; i++)
     {

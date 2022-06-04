@@ -19,7 +19,7 @@ int main()
 	addEdgewithWeightAG(pGraph, 3, 5, 5);
 	addEdgewithWeightAG(pGraph, 4, 5, 6);
 
-	LinkedGraph *mst = mstKruskal(pGraph);
+	LinkedGraph *mst = mstprim(pGraph, 0);
 	displayLinkedGraph(mst);
 	return 0;
 }
