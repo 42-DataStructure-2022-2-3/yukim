@@ -48,14 +48,14 @@ void deleteLinkedGraph(LinkedGraph* pGraph)
 	pGraph = NULL;
 }
 
-int isEmptyAG(LinkedGraph* pGraph)
+int isEmptyLG(LinkedGraph* pGraph)
 {
 	if (pGraph && pGraph->currentVertexCount == 0)
 		return (TRUE);
 	return (FALSE);
 }
 
-int addVertexAG(LinkedGraph* pGraph, int vertexID)// vertexIndex
+int addVertexLG(LinkedGraph* pGraph, int vertexID)// vertexIndex
 {
 	if (!pGraph || pGraph->pVertex[vertexID] == USED)
 		return (FAIL);
@@ -66,7 +66,7 @@ int addVertexAG(LinkedGraph* pGraph, int vertexID)// vertexIndex
 	return (SUCCESS);
 }
 
-int addEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
+int addEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 {
 	int 		last_index;
 	ListNode 	element;
@@ -75,7 +75,7 @@ int addEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 		return (FAIL);
 	if (!checkVertexValid(pGraph, fromVertexID) || !checkVertexValid(pGraph, toVertexID))
 		return (FAIL);
-	
+
 	element.data.weight = 0;
 	element.data.vertexID = toVertexID;
 	last_index = pGraph->ppAdjEdge[fromVertexID]->currentElementCount;
@@ -90,7 +90,7 @@ int addEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 	}
 	return (SUCCESS);
 }
-int addEdgewithWeightAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, int weight)
+int addEdgewithWeightLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, int weight)
 {
 	int 		last_index;
 	ListNode 	element;
@@ -99,7 +99,7 @@ int addEdgewithWeightAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, i
 		return (FAIL);
 	if (!checkVertexValid(pGraph, fromVertexID) || !checkVertexValid(pGraph, toVertexID))
 		return (FAIL);
-	
+
 	element.data.weight = weight;
 	element.data.vertexID = toVertexID;
 	last_index = pGraph->ppAdjEdge[fromVertexID]->currentElementCount;
@@ -122,25 +122,25 @@ int checkVertexValid(LinkedGraph* pGraph, int vertexID)
 	return (pGraph->pVertex[vertexID] == USED);
 }
 
-int removeVertexAG(LinkedGraph* pGraph, int vertexID)
+int removeVertexLG(LinkedGraph* pGraph, int vertexID)
 {
-	if (!pGraph || !checkVertexValid(pGraph, vertexID) || isEmptyAG(pGraph))
+	if (!pGraph || !checkVertexValid(pGraph, vertexID) || isEmptyLG(pGraph))
 		return(FAIL);
 	// clearLinkedList(pGraph->ppAdjEdge[vertexID]);
 	for (int i = 0; i < pGraph->maxVertexCount; i++)
-		removeEdgeAG(pGraph, i, vertexID);
+		removeEdgeLG(pGraph, i, vertexID);
 	clearLinkedList(pGraph->ppAdjEdge[vertexID]);
 	pGraph->pVertex[vertexID] = NOT_USED;
 	pGraph->currentVertexCount--;
 	return (SUCCESS);
 }
 
-int removeEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
+int removeEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 {
 	int position;
 	ListNode *curr;
 
-	
+
 	if (!pGraph || !checkVertexValid(pGraph, fromVertexID) || !checkVertexValid(pGraph, toVertexID))
 		return (FAIL);
 	if (fromVertexID == toVertexID)

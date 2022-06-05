@@ -14,9 +14,9 @@ LinkedGraph *mstKruskal(LinkedGraph *pGraph)
         // printf("fromvertexid : %d , tovertexid : %d, weight : %d\n", minedgenode->fromvertexID, minedgenode->tovertexID, minedgenode->data);
         if (!cyclecheck(mst, minedgenode->fromvertexID, minedgenode->tovertexID))
         {
-            addVertexAG(mst, minedgenode->fromvertexID);
-            addVertexAG(mst, minedgenode->tovertexID);
-            addEdgewithWeightAG(mst, minedgenode->fromvertexID, minedgenode->tovertexID, minedgenode->data);
+            addVertexLG(mst, minedgenode->fromvertexID);
+            addVertexLG(mst, minedgenode->tovertexID);
+            addEdgewithWeightLG(mst, minedgenode->fromvertexID, minedgenode->tovertexID, minedgenode->data);
         }
 
         if (mst->currentVertexCount == pGraph->currentVertexCount)
@@ -35,7 +35,7 @@ HeapBucket *orderEdge(LinkedGraph *pGraph)
     {
             curr = pGraph->ppAdjEdge[i]->headerNode.pLink;
             while (curr)
-            {      
+            {
                 if (i < curr->data.vertexID)
                 {
                     HeapNode element = {0, };
@@ -44,9 +44,9 @@ HeapBucket *orderEdge(LinkedGraph *pGraph)
                     element.fromvertexID = i;
                     element.tovertexID = curr->data.vertexID;
                     addMinHeapElement(minheap, element);
-                }    
+                }
                 curr = curr->pLink;
-            }   
+            }
     }
     return minheap;
 }
@@ -64,7 +64,7 @@ int cyclecheck(LinkedGraph *mst, int fromvertexID, int tovertexID)
 	pvisited[fromvertexID] = VISITED;
 	element.data = fromvertexID;
 	pushAS(pStack, element);
-	while(!isArrayStackEmpty(pStack)) 
+	while(!isArrayStackEmpty(pStack))
 	{
 		StackNode *u = popAS(pStack);
 		// printf("%d\n", u->data);
@@ -72,7 +72,7 @@ int cyclecheck(LinkedGraph *mst, int fromvertexID, int tovertexID)
         if (fromvertexID == tovertexID) return TRUE;
 		curr = mst->ppAdjEdge[fromvertexID]->headerNode.pLink;
 		while (curr)
-		{ 
+		{
 			 if (pvisited[curr->data.vertexID] == NOT_VISITED)
 	 		{
 				pvisited[curr->data.vertexID] = VISITED;

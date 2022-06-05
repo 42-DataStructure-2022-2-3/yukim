@@ -6,7 +6,7 @@ LinkedGraph *mstprim(LinkedGraph *pGraph, int startVertexID)
     LinkedGraph *mst = createLinkedGraph(pGraph->maxVertexCount);
     if (!mst) return NULL;
 
-    addVertexAG(mst, startVertexID);
+    addVertexLG(mst, startVertexID);
     // printf("mst->currentVertexCount %d\n", mst->currentVertexCount);
     while (mst->currentVertexCount < pGraph->currentVertexCount)
     {
@@ -17,13 +17,13 @@ LinkedGraph *mstprim(LinkedGraph *pGraph, int startVertexID)
             // printf("%d\n", i);
             if (mst->pVertex[i] == USED)
             {
-                
+
                 getminWeightEdge(pGraph, mst, i, &minEdge);
             }
         }
-        addVertexAG(mst, minEdge.tovertexID);
+        addVertexLG(mst, minEdge.tovertexID);
         // printf("%d\n", mst->currentVertexCount);
-        addEdgewithWeightAG(mst, minEdge.fromvertexID, minEdge.tovertexID, minEdge.weight);
+        addEdgewithWeightLG(mst, minEdge.fromvertexID, minEdge.tovertexID, minEdge.weight);
     }
     return mst;
 }
@@ -32,12 +32,12 @@ void getminWeightEdge(LinkedGraph *pGraph,LinkedGraph *mst, int fromVertexID, mi
 {
     ListNode *curr;
 
- 
+
     curr = pGraph->ppAdjEdge[fromVertexID]->headerNode.pLink;
     while (curr)
     {
         if (curr->data.weight < minEdge->weight)
-        {   
+        {
             if (!isalready(mst, fromVertexID, curr->data.vertexID))
             {
                 if (!cyclecheck(mst, fromVertexID, curr->data.vertexID))
@@ -78,7 +78,7 @@ int isalready(LinkedGraph *mst, int fromVertexID, int toVertexID)
 // 	pvisited[fromvertexID] = VISITED;
 // 	element.data = fromvertexID;
 // 	pushAS(pStack, element);
-// 	while(!isArrayStackEmpty(pStack)) 
+// 	while(!isArrayStackEmpty(pStack))
 // 	{
 // 		StackNode *u = popAS(pStack);
 // 		// printf("%d\n", u->data);
@@ -86,7 +86,7 @@ int isalready(LinkedGraph *mst, int fromVertexID, int toVertexID)
 //         if (fromvertexID == tovertexID) return TRUE;
 // 		curr = mst->ppAdjEdge[fromvertexID]->headerNode.pLink;
 // 		while (curr)
-// 		{ 
+// 		{
 // 			 if (pvisited[curr->data.vertexID] == NOT_VISITED)
 // 	 		{
 // 				pvisited[curr->data.vertexID] = VISITED;
