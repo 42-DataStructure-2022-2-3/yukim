@@ -19,8 +19,14 @@ int main()
     addEdgewithWeightLG(pGraph, 3, 5, 3);
     addEdgewithWeightLG(pGraph, 4, 5 , 4);
 
-    int *path = dijkstra(pGraph, 0);
+    int **path = floyd(pGraph);
     for (int i = 0; i < pGraph->currentVertexCount; i++)
-        printf("%d ", path[i]);
+    {
+        for (int j = 0; j < pGraph->currentVertexCount; j++)
+        {
+            printf("%d ", path[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
