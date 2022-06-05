@@ -4,6 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct
+{
+	int fromvertexID;
+	int	tovertexID;
+	int weight;
+} minWeightEdge;
+
+
 typedef struct GraphVertexType
 {
 	int vertexID;		// ��� ID
@@ -26,11 +34,11 @@ typedef struct LinkedGraphType
 {
 	int maxVertexCount;		// �ִ� ��� ����
 	int currentVertexCount;	// ���� ���Ǵ� ����� ����
-	int edgecount;
 	int graphType;			// 1-Undirected, 2-Directed
 	LinkedList **ppAdjEdge;		// ���� ������ ���� 2���� Linked
 	int *pVertex;
-	int *visited;		// ��� ������ ���� 1���� Linked
+	int *visited;
+	int	edgecount;		// ��� ������ ���� 1���� Linked
 } LinkedGraph;
 
 LinkedGraph* createLinkedGraph(int maxVertexCount);

@@ -9,8 +9,8 @@ LinkedGraph* createLinkedGraph(int maxVertexCount)
 	pGraph->maxVertexCount = maxVertexCount;
 	pGraph->graphType = GRAPH_UNDIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
-	pGraph->visited = calloc(maxVertexCount, sizeof(int));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
 		pGraph->ppAdjEdge[i] = createLinkedList();
@@ -29,7 +29,7 @@ LinkedGraph* createLinkedDirectedGraph(int maxVertexCount)
 	pGraph->graphType = GRAPH_DIRECTED;
 	pGraph->pVertex = (int *)calloc(maxVertexCount, sizeof(int));
 	pGraph->ppAdjEdge = (LinkedList **)calloc(maxVertexCount, sizeof(LinkedList*));
-	pGraph->visited = calloc(maxVertexCount, sizeof(int));
+	pGraph->visited = (int *)calloc(maxVertexCount, sizeof(int));
 	for (int i = 0; i < maxVertexCount; i++)
 	{
 		pGraph->ppAdjEdge[i] = createLinkedList();
@@ -154,8 +154,8 @@ int removeEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 	}
 	if (position > pGraph->ppAdjEdge[fromVertexID]->currentElementCount)
 		return (FAIL);
+	// printf("%d\n", position);
 	removeLLElement(pGraph->ppAdjEdge[fromVertexID], position);
-	pGraph->edgecount--;
 	if (pGraph->graphType == GRAPH_UNDIRECTED)
 	{
 		curr = &pGraph->ppAdjEdge[toVertexID]->headerNode;
@@ -168,7 +168,6 @@ int removeEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID)
 		if (position > pGraph->ppAdjEdge[toVertexID]->currentElementCount)
 			return (FAIL);
 		removeLLElement(pGraph->ppAdjEdge[toVertexID], position);
-		pGraph->edgecount--;
 	}
 	return (SUCCESS);
 }

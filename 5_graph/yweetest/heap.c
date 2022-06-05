@@ -12,67 +12,70 @@ HeapBucket* createHeap(size_t capacity) {
     return (ret);
 };
 
-bool addMaxHeapElement(HeapBucket *pHeap, int data) {
+// bool addMaxHeapElement(HeapBucket *pHeap, int data) {
+//     if (isHeapFull(pHeap) == true)
+//         if (!reallocHeapArray(pHeap)) return false;
+//     pHeap->size++;
+//     pHeap->pHeapArray[pHeap->size].data = data;
+//     int i = pHeap->size;
+//     while ((i != 1) && (pHeap->pHeapArray[i].data > pHeap->pHeapArray[i / 2].data)) {
+//         int tmp = pHeap->pHeapArray[i / 2].data;
+//         pHeap->pHeapArray[i / 2].data = pHeap->pHeapArray[i].data;
+//         pHeap->pHeapArray[i].data = tmp;
+//         i = i / 2;
+//     }
+//     pHeap->pHeapArray[i].data = data;
+//     return true;
+// };
+
+bool addMinHeapElement(HeapBucket *pHeap, HeapNode element) {
     if (isHeapFull(pHeap) == true)
         if (!reallocHeapArray(pHeap)) return false;
     pHeap->size++;
-    pHeap->pHeapArray[pHeap->size].data = data;
+    pHeap->pHeapArray[pHeap->size] = element;
     int i = pHeap->size;
-    while ((i != 1) && (pHeap->pHeapArray[i].data > pHeap->pHeapArray[i / 2].data)) {
-        int tmp = pHeap->pHeapArray[i / 2].data;
-        pHeap->pHeapArray[i / 2].data = pHeap->pHeapArray[i].data;
-        pHeap->pHeapArray[i].data = tmp;
-        i = i / 2;
-    }
-    pHeap->pHeapArray[i].data = data;
-    return true;
-};
-
-void addMinHeapElement(HeapBucket *pHeap, HeapNode element) {
-
-    if (isHeapFull(pHeap) == true)
-        if (!reallocHeapArray(pHeap)) return ;
-    pHeap->size++;
-    int i = pHeap->size;
-    while ((i != 1) && (element.data < pHeap->pHeapArray[i / 2].data)) {
-        pHeap->pHeapArray[i] = pHeap->pHeapArray[i / 2];
-
+    HeapNode tmp;
+    while ((i != 1) && (pHeap->pHeapArray[i].data < pHeap->pHeapArray[i / 2].data)) {
+        tmp = pHeap->pHeapArray[i / 2];
+        pHeap->pHeapArray[i / 2] = pHeap->pHeapArray[i];
+        pHeap->pHeapArray[i] = tmp;
         i = i / 2;
     }
     pHeap->pHeapArray[i] = element;
+    return true;
 };
 
-int deleteMaxHeapElement(HeapBucket* pHeap) {
-    int ret = pHeap->pHeapArray[1].data;
-    pHeap->pHeapArray[1].data = 0;
+// int deleteMaxHeapElement(HeapBucket* pHeap) {
+//     int ret = pHeap->pHeapArray[1].data;
+//     pHeap->pHeapArray[1].data = 0;
 
-    size_t i = pHeap->size;
-    int tmp = pHeap->pHeapArray[i].data;
-    pHeap->size--;
+//     size_t i = pHeap->size;
+//     int tmp = pHeap->pHeapArray[i].data;
+//     pHeap->size--;
 
-    size_t parent = 1;
-    size_t child = 2;
-    while (child <= pHeap->size) {
-        if ((child < pHeap->size)
-            && (pHeap->pHeapArray[child].data < pHeap->pHeapArray[child + 1].data))
-            child = child + 1;
-        if (tmp >= pHeap->pHeapArray[child].data)
-            break ;
-        pHeap->pHeapArray[parent].data = pHeap->pHeapArray[child].data;
-        parent = child;
-        child = child * 2;
-    }
-    pHeap->pHeapArray[pHeap->size + 1].data = 0;
-    pHeap->pHeapArray[parent].data = tmp;
-    return ret;
-};
+//     size_t parent = 1;
+//     size_t child = 2;
+//     while (child <= pHeap->size) {
+//         if ((child < pHeap->size)
+//             && (pHeap->pHeapArray[child].data < pHeap->pHeapArray[child + 1].data))
+//             child = child + 1;
+//         if (tmp >= pHeap->pHeapArray[child].data)
+//             break ;
+//         pHeap->pHeapArray[parent].data = pHeap->pHeapArray[child].data;
+//         parent = child;
+//         child = child * 2;
+//     }
+//     pHeap->pHeapArray[pHeap->size + 1].data = 0;
+//     pHeap->pHeapArray[parent].data = tmp;
+//     return ret;
+// };
 
 HeapNode *deleteMinHeapElement(HeapBucket* pHeap) {
-    HeapNode *del_node = calloc(1, sizeof(HeapNode));
-    *del_node = pHeap->pHeapArray[1];
+    HeapNode *ret = calloc(1, sizeof(HeapNode));
+     *ret = pHeap->pHeapArray[1];
 
-    int i = pHeap->size;
-    HeapNode *pTemp = &(pHeap->pHeapArray[i]);
+    size_t i = pHeap->size;
+    HeapNode *tmp = &(pHeap->pHeapArray[i]);
     pHeap->size--;
 
     size_t parent = 1;
@@ -81,14 +84,14 @@ HeapNode *deleteMinHeapElement(HeapBucket* pHeap) {
         if ((child < pHeap->size)
             && (pHeap->pHeapArray[child].data > pHeap->pHeapArray[child + 1].data))
             child = child + 1;
-        if (pTemp->data <= pHeap->pHeapArray[child].data)
+        if (tmp->data <= pHeap->pHeapArray[child].data)
             break ;
         pHeap->pHeapArray[parent] = pHeap->pHeapArray[child];
         parent = child;
         child = child * 2;
     }
-    pHeap->pHeapArray[parent] = *pTemp;
-    return (del_node);
+    pHeap->pHeapArray[parent] = *tmp;
+    return ret;
 };
 
 bool reallocHeapArray(HeapBucket* pHeap) {
@@ -97,9 +100,9 @@ bool reallocHeapArray(HeapBucket* pHeap) {
     if (!newArr) return false;
     for (size_t i = 1; i <= pHeap->size + 1; i++) {
         newArr[i].data = pHeap->pHeapArray[i].data;
-        newArr[i].fromvertexID = pHeap->pHeapArray[i].fromvertexID;
-        newArr[i].tovertexID = pHeap->pHeapArray[i].tovertexID;
         newArr[i].visited = pHeap->pHeapArray[i].visited;
+        newArr[i].tovertexID = pHeap->pHeapArray[i].tovertexID;
+        newArr[i].fromvertexID = pHeap->pHeapArray[i].fromvertexID;
     }
     free(pHeap->pHeapArray);
     pHeap->pHeapArray = newArr;
@@ -126,8 +129,8 @@ bool isHeapFull(HeapBucket* pHeap) {
 };
 
 void printHeapArray(HeapBucket *pHeap) {
-    for (size_t i = 0; i < pHeap->size + 1; i++) {
-       printf("fromvertex id : %d, tovertexid : %d, weight : %d\n", pHeap->pHeapArray[i].fromvertexID, pHeap->pHeapArray[i].tovertexID, pHeap->pHeapArray[i].data);
+    for (size_t i = 0; i < pHeap->size; i++) {
+        printf("fromvertexID %d, tovertexID %d, weight %d\n", pHeap->pHeapArray[i].fromvertexID, pHeap->pHeapArray[i].tovertexID, pHeap->pHeapArray[i].data);
     }
     printf("size : %zu capacity : %zu\n", pHeap->size, pHeap->capacity);
 }
