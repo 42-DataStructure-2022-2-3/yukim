@@ -19,8 +19,20 @@ int main()
 	addEdgewithWeightAG(pGraph, 4, 5, 2);
 	addEdgewithWeightAG(pGraph, 2, 5, 5);
 
-	int *path = dijkstra(pGraph, 5);
+	// dijkstra
+	// int *path = dijkstra(pGraph, 5);
+	// for (int i = 0; i < 6; i++)
+	// 	printf("[%d] : %d\n", i, path[i]);
+
+	// floyd
+	int **path = floyd(pGraph);
 	for (int i = 0; i < 6; i++)
-		printf("[%d] : %d\n", i, path[i]);
+	{
+		for (int j = 0; j < 6; j++)
+		{
+			printf("%d ", path[i][j]);
+		}
+		printf("\n");
+	}
 	return 0;
 }
