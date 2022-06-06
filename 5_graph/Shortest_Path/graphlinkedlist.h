@@ -28,20 +28,20 @@ typedef struct LinkedGraphType
 	int currentVertexCount;	// ���� ���Ǵ� ����� ����
 	int graphType;			// 1-Undirected, 2-Directed
 	LinkedList **ppAdjEdge;		// ���� ������ ���� 2���� Linked
-	int *pVertex;	
+	int *pVertex;
 	int *visited;		// ��� ������ ���� 1���� Linked
 } LinkedGraph;
 
 LinkedGraph* createLinkedGraph(int maxVertexCount);
 LinkedGraph* createLinkedDirectedGraph(int maxVertexCount);
 void deleteLinkedGraph(LinkedGraph* pGraph);
-int isEmptyAG(LinkedGraph* pGraph);
-int addVertexAG(LinkedGraph* pGraph, int vertexID);
-int addEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID);
-int addEdgewithWeightAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, int weight);
+int isEmptyLG(LinkedGraph* pGraph);
+int addVertexLG(LinkedGraph* pGraph, int vertexID);
+int addEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID);
+int addEdgewithWeightLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID, int weight);
 int checkVertexValid(LinkedGraph* pGraph, int vertexID);
-int removeVertexAG(LinkedGraph* pGraph, int vertexID);
-int removeEdgeAG(LinkedGraph* pGraph, int fromVertexID, int toVertexID);
+int removeVertexLG(LinkedGraph* pGraph, int vertexID);
+int removeEdgeLG(LinkedGraph* pGraph, int fromVertexID, int toVertexID);
 void displayLinkedGraph(LinkedGraph* pGraph);
 
 LinkedList* createLinkedList();
