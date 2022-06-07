@@ -3,6 +3,8 @@
 #include "graphlinkedlist.h"
 #include "heap.h"
 
+#define INF 999999
+
 LinkedGraph *mstKruskal(LinkedGraph *pGraph);
 HeapBucket *orderEdge(LinkedGraph *pGraph);
 int cyclecheck(LinkedGraph *mst, int fromvertexID, int tovertexID);

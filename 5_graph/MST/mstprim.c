@@ -7,22 +7,15 @@ LinkedGraph *mstprim(LinkedGraph *pGraph, int startVertexID)
     if (!mst) return NULL;
 
     addVertexLG(mst, startVertexID);
-    // printf("mst->currentVertexCount %d\n", mst->currentVertexCount);
     while (mst->currentVertexCount < pGraph->currentVertexCount)
     {
-        minEdge.weight = 9999999;
-        // printf("mst current count : %d, graph current count : %d\n", mst->currentVertexCount, pGraph->currentVertexCount);
+        minEdge.weight = INF;
         for (int i = 0; i < pGraph->currentVertexCount; i++)
         {
-            // printf("%d\n", i);
             if (mst->pVertex[i] == USED)
-            {
-
                 getminWeightEdge(pGraph, mst, i, &minEdge);
-            }
         }
         addVertexLG(mst, minEdge.tovertexID);
-        // printf("%d\n", mst->currentVertexCount);
         addEdgewithWeightLG(mst, minEdge.fromvertexID, minEdge.tovertexID, minEdge.weight);
     }
     return mst;
