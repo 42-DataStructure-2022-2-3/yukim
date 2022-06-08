@@ -9,20 +9,30 @@ void print_value_array(int *value, int count)
 
 void shell_sort(int *value, int count)
 {
-	int gap = count / 2 + 1;
+	int gap = (count / 2) + 1; // 왜 gap = count/2 이면 seg fault?
 	int i, j, tmp;
 
 	while (gap)
 	{
 		for (i = 0; i + gap < count; i++)
 		{
-			for (j = i + gap; j < count; j += gap);
+			for (j = i + gap; j < count; j += gap)
 			{
 				tmp = value[j];
-				int k = j - gap;
-				while (k > )
+				int k = j;
+				while (k > 0)
+				{
+					if (tmp < value[k - gap])
+					{
+						value[k] = value[k - gap]; 
+						k -= gap;
+					}
+					else
+						break ;
+				}
+				value[k] = tmp;
 			}
 		}
-		gap = gap / 2 + 1;
+		gap = (gap / 2);
 	}
 }
