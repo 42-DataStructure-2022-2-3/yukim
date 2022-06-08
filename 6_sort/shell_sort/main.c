@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	int count = 8;
+	int count = 55;
 	int value[count];
 
 	for (int i = 0; i < count; i++)
