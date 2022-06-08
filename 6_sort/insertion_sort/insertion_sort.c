@@ -15,7 +15,7 @@ void insertion_sort(int *value, int count)
 	for (i = 1; i < count; i++)
 	{
 		tmp = value[i];
-		j = i;
+		j = i; // 왜 j = i - 1이면 제대로 동작되지 않을까? 
 		while (j > 0)
 		{
 			if (tmp < value[j - 1])
